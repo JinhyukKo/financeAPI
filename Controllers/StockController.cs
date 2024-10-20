@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinSharkk.Data;
+using FinSharkk.DTOs.Stock;
 using FinSharkk.Mappers;
 using FinSharkk.Models;
 
@@ -44,6 +45,15 @@ namespace FinSharkk.Controllers
             var stockDto = stock.ToDto();
             return Ok(stockDto);
 
-        } 
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockRequestDto)
+        {
+            Stock stock = stockRequestDto.CreateDtoToStock();
+            _context.Stocks.Add(stock);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock.ToDto());
+        }
     }
 }

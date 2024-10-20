@@ -15,19 +15,20 @@ public static class StockMapper
             Industry = stock.Industry,
             LastDiv =  stock.LastDiv,
             Purchase = stock.Purchase,
+            MarketCap = stock.MarketCap,
         };
     }
 
-    public static Stock ToStock(this StockDto stockDto)
+    public static Stock CreateDtoToStock(this CreateStockRequestDto stockDto)
     {
         return new Stock()
         {
-            Id = stockDto.Id,
             Symbol = stockDto.Symbol,
             CompanyName = stockDto.CompanyName,
             Industry = stockDto.Industry,
             LastDiv =  stockDto.LastDiv,
             Purchase = stockDto.Purchase, 
+            MarketCap = stockDto.MarketCap,
         };
     }
 }

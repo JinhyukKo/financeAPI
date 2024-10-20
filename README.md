@@ -32,4 +32,5 @@ it depends on your setting.
 7. Program.cs : AddControllers MapControllers
 8. DTOs
 9. Mapper
+10. Controller from sending model -> sending Dto
 
