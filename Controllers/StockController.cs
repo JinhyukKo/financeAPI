@@ -25,8 +25,8 @@ namespace FinSharkk.Controllers
         public IActionResult GetAll()
         {
             // var stocks = _context.Stocks.ToList();
-            var query = from stock in _context.Stocks select stock;
-            return Ok(query.ToList());
+            var stocks = (from stock in _context.Stocks select stock).ToList(); ;
+            return Ok(stocks);
 
         }
         [HttpGet("{id}")]
@@ -34,11 +34,11 @@ namespace FinSharkk.Controllers
         {
             // var stock = _context.Stocks.Find(id);
             // var stock = _context.Stocks.Where(stock => stock.Id == id).FirstOrDefault();
-            // if(stock==null) return NotFound();
-            var query = from stock in _context.Stocks 
-                where stock.Id == id
-                select stock;
-            return Ok(query.FirstOrDefault());
+            var stock = (from s in _context.Stocks
+                where s.Id == id
+                select s).FirstOrDefault();
+            if (stock == null) return NotFound();
+            return Ok(stock);
 
         } 
     }

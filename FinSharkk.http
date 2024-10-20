@@ -1,6 +1,0 @@
-@FinSharkk_HostAddress = http://localhost:5167
-
-GET {{FinSharkk_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
