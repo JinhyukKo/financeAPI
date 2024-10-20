@@ -12,8 +12,22 @@ $ dotnet ef database update
 ```
 
 ### appsettings.json
-```json
+```
   "ConnectionStrings": {
     "DefaultConnection": "Data Source=localhost,1433;Initial Catalog=finshark;User Id=sa;Password=xxxxxx;TrustServerCertificate=true"
-  },
+  }
 ```
+MacOS +Docker
+
+it depends on your setting.
+
+## Progress
+
+1. Stock.cs Comment.cs
+2. AppDbContext.cs
+3. Program.cs : AddDbContext
+4. appsettings.json : ConnectionStrings
+5. migration + dummy data
+6. Controller
+7. Program.cs : AddControllers MapControllers
+
