@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinSharkk.Data;
+using FinSharkk.Mappers;
 using FinSharkk.Models;
 
 namespace FinSharkk.Controllers
@@ -25,8 +26,10 @@ namespace FinSharkk.Controllers
         public IActionResult GetAll()
         {
             // var stocks = _context.Stocks.ToList();
-            var stocks = (from stock in _context.Stocks select stock).ToList(); ;
-            return Ok(stocks);
+            var stocksDTO = (from stock in _context.Stocks select stock)
+                .ToList()
+                .Select(x=> x.ToDto()) ;
+            return Ok(stocksDTO);
 
         }
         [HttpGet("{id}")]
@@ -38,7 +41,8 @@ namespace FinSharkk.Controllers
                 where s.Id == id
                 select s).FirstOrDefault();
             if (stock == null) return NotFound();
-            return Ok(stock);
+            var stockDto = stock.ToDto();
+            return Ok(stockDto);
 
         } 
     }

@@ -30,4 +30,6 @@ it depends on your setting.
 5. migration + dummy data
 6. Controller
 7. Program.cs : AddControllers MapControllers
+8. DTOs
+9. Mapper
 
