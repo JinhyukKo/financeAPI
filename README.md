@@ -34,5 +34,8 @@ while(post,delete,put)
 8. DTOs
 9. Mapper
 10. Controller from sending model -> sending Dto
+11. Controller : Async 
+12. add IRepository , Repository
+13. Program.cs : builder.Services.AddScoped()
 
 
