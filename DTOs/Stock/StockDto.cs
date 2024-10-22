@@ -1,3 +1,5 @@
+using FinSharkk.DTOs.Comment;
+
 namespace FinSharkk.DTOs.Stock;
 
 public class StockDto
@@ -9,5 +11,5 @@ public class StockDto
     public decimal LastDiv { get; set; }
     public string Industry   { get; set; }  = string.Empty;
     public long MarketCap { get; set; } 
-    // public List<Comment> Comments { get; set; } =new List<Comment>();
+    public List<CommentDto> Comments { get; set; } =new List<CommentDto>();
 }

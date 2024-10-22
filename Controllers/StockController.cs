@@ -35,9 +35,9 @@ namespace FinSharkk.Controllers
             //     .Select(x=> x.ToDto()) ;
 
             List<Stock> stocks = await _stockRepo.GetAllAsync();
-            // var stocksDto = (from stock in stocks select stock)
-            //     .Select(x => x.ToDto()).ToList();
-            return Ok(stocks);
+            var stocksDto = (from stock in stocks select stock)
+                .Select(x => x.ToDto()).ToList();
+            return Ok(stocksDto);
 
         }
         [HttpGet("{id}")]
