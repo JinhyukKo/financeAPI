@@ -16,7 +16,7 @@ public class StockRepository : IStockRepository
     }
     public async Task<List<Stock>> GetAllAsync()
     {
-        var stocks =await _context.Stocks.ToListAsync();
+        var stocks =await _context.Stocks.Include(x => x.Comments).ToListAsync();
         return stocks;
     }
 

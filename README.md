@@ -4,6 +4,8 @@
 1. Microsoft.EntityFramework.Tools
 2. Microsoft.EntityFramework.Design
 3. Microsoft.EntityFramework.SqlServer
+4. Newtonsoft.Json
+5. Microsoft.AspNetCore.Mvc.NewtonsoftJson
 
 ### Migration
 ```bash
@@ -38,4 +40,12 @@ while(post,delete,put)
 12. add IRepository , Repository
 13. Program.cs : builder.Services.AddScoped()
 
+## Comment
+
+1. IRepository Repository
+2. DTO
+3. Mapper
+4. Controller
+5. builder.Services.AddScoped()
+6. Newtonsoft.Json + Microsoft.AspNetCore.Mvc.NewtonsoftJson
 
