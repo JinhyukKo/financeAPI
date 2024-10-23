@@ -17,15 +17,23 @@ public static class CommentMapper
         };
     }
 
-    // public static Comment ToEntity(CommentDto commentDto)
-    // {
-    //     return new Comment()
-    //     {
-    //         StockId = commentDto.StockId,
-    //         Id = commentDto.Id,
-    //         Title = commentDto.Title,
-    //         Content = commentDto.Content,
-    //         CreatedOn = commentDto.CreatedOn,
-    //     };
-    // }
+    public static Comment CreateDtoToEntity(this CreateCommentRequestDto commentDto,int stockId)
+    {
+        return new Comment
+        {
+            Title = commentDto.Title,
+            Content = commentDto.Content,
+            StockId = stockId
+        };
+    }
+
+    public static Comment UpdateDtoToEntity(this UpdateCommentRequestDto commentDto, int stockId)
+    {
+        return new Comment()
+        {
+            Title = commentDto.Title,
+            Content = commentDto.Content,
+            StockId = stockId
+        };
+    }
 }

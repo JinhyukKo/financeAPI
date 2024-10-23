@@ -14,97 +14,70 @@ using FinSharkk.Repositorys;
 
 namespace FinSharkk.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/comment")]
     [ApiController]
     public class CommentController : ControllerBase
     {
         private readonly ICommentRepository _commentRepo;
+        private readonly IStockRepository _stockRepo;
 
-        public CommentController(ICommentRepository commentRepo)
+        public CommentController(ICommentRepository commentRepo, IStockRepository stockRepo)
         {
             _commentRepo = commentRepo;
+            _stockRepo = stockRepo;
         }
 
         // GET: api/Comment
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public async Task<ActionResult<IEnumerable<CommentDto>>> GetComments()
         {
             var comments = await _commentRepo.GetAllAsync();
             var commentsDto = comments.Select(x=>x.ToDto());
             return Ok(commentsDto);
         }
 
-        // GET: api/Comment/5
-        // [HttpGet("{id}")]
-        // public async Task<ActionResult<Comment>> GetComment(int id)
-        // {
-        //     var comment = await _context.Comments.FindAsync(id);
+        //GET: api/Comment/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CommentDto>> GetComment(int id)
+        {
+            var comment = await _commentRepo.GetByIdAsync(id);
+        
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return comment.ToDto();
+        }
         //
-        //     if (comment == null)
-        //     {
-        //         return NotFound();
-        //     }
+        // To protect from overposting attacks, see https://go.microsoft. com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutComment(int id, UpdateCommentRequestDto commentReqDto)
+        {
+            var comment =  await _commentRepo.UpdateAsync(id,commentReqDto);
+            if(comment == null) return NotFound();
+            return Ok(comment.ToDto());
+        }
         //
-        //     return comment;
-        // }
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("{stockId}")]
+        public async Task<ActionResult<Comment>> PostComment([FromRoute]int stockId , [FromBody]CreateCommentRequestDto commentDto)
+        {
+            if (!await _stockRepo.ExistsAsync(stockId)) return NotFound();
+            var comment =await _commentRepo.AddAsync(commentDto.CreateDtoToEntity(stockId));
+            
+            return CreatedAtAction(nameof(GetComment), new {id = comment.Id}, comment.ToDto());
+        }
         //
-        // // PUT: api/Comment/5
-        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> PutComment(int id, Comment comment)
-        // {
-        //     if (id != comment.Id)
-        //     {
-        //         return BadRequest();
-        //     }
-        //
-        //     _context.Entry(comment).State = EntityState.Modified;
-        //
-        //     try
-        //     {
-        //         await _context.SaveChangesAsync();
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!CommentExists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
-        //
-        //     return NoContent();
-        // }
-        //
-        // // POST: api/Comment
-        // // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        // [HttpPost]
-        // public async Task<ActionResult<Comment>> PostComment(Comment comment)
-        // {
-        //     _context.Comments.Add(comment);
-        //     await _context.SaveChangesAsync();
-        //
-        //     return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
-        // }
-        //
-        // // DELETE: api/Comment/5
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeleteComment(int id)
-        // {
-        //     var comment = await _context.Comments.FindAsync(id);
-        //     if (comment == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //
-        //     _context.Comments.Remove(comment);
-        //     await _context.SaveChangesAsync();
-        //
-        //     return NoContent();
-        // }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var comment = await _commentRepo.DeleteAsync(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
         //
         // private bool CommentExists(int id)
         // {

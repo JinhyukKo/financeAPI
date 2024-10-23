@@ -1,7 +1,6 @@
 using FinSharkk.Data;
 using FinSharkk.DTOs.Stock;
 using FinSharkk.Interfaces;
-using FinSharkk.Mappers;
 using FinSharkk.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,5 +57,10 @@ public class StockRepository : IStockRepository
         _context.Stocks.Remove(stock);
         await _context.SaveChangesAsync();
         return stock;
+    }
+
+    public async Task<bool> ExistsAsync(int id)
+    {
+       return await _context.Stocks.AnyAsync(x => x.Id == id);
     }
 }

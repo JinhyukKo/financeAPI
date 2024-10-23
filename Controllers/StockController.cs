@@ -57,8 +57,6 @@ namespace FinSharkk.Controllers
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto stockRequestDto)
         {
             Stock stock = stockRequestDto.CreateDtoToStock();
-            // _context.Stocks.Add(stock);
-            // _context.SaveChanges();
             await _stockRepo.AddAsync(stock);
             return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock.ToDto());
         }
