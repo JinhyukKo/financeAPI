@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinSharkk.Data;
 using FinSharkk.DTOs.Stock;
+using FinSharkk.Helpers;
 using FinSharkk.Interfaces;
 using FinSharkk.Mappers;
 using FinSharkk.Models;
@@ -27,14 +28,9 @@ namespace FinSharkk.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] StockQuery query)
         {
-            // var stocks = _context.Stocks.ToList();
-            // var stocksDTO = (from stock in _context.Stocks select stock)
-            //     .ToList()
-            //     .Select(x=> x.ToDto()) ;
-
-            List<Stock> stocks = await _stockRepo.GetAllAsync();
+            List<Stock> stocks = await _stockRepo.GetAllAsync(query);
             var stocksDto = (from stock in stocks select stock)
                 .Select(x => x.ToDto()).ToList();
             return Ok(stocksDto);
