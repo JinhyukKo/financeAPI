@@ -39,7 +39,7 @@ while(post,delete,put)
 11. Controller : Async 
 12. add IRepository , Repository
 13. Program.cs : builder.Services.AddScoped()
-
+14. Data Validation to DTOs + ModelState.isValid in Controllers
 ## Comment
 
 1. IRepository Repository

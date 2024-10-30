@@ -37,7 +37,7 @@ namespace FinSharkk.Controllers
         }
 
         //GET: api/Comment/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<CommentDto>> GetComment(int id)
         {
             var comment = await _commentRepo.GetByIdAsync(id);
@@ -59,7 +59,7 @@ namespace FinSharkk.Controllers
         }
         //
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("{stockId}")]
+        [HttpPost("{stockId:int}")]
         public async Task<ActionResult<Comment>> PostComment([FromRoute]int stockId , [FromBody]CreateCommentRequestDto commentDto)
         {
             if (!await _stockRepo.ExistsAsync(stockId)) return NotFound();
