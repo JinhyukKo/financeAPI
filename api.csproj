@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
           <PrivateAssets>all</PrivateAssets>
@@ -29,4 +30,7 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Finsharkk.Tests"/>
+    </ItemGroup>
 </Project>
